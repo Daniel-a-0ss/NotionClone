@@ -315,6 +315,178 @@ export const TEMPLATES: TemplateItem[] = [
 <li style="margin: 8px 0;">☐ Coordinar logística</li>
 </ul>`,
   },
+  // --- Plantillas añadidas adicionales (varias categorías) ---
+  {
+    id: 'resume',
+    name: 'Currículum (Resumen)',
+    emoji: '📄',
+    category: 'trabajo',
+    content: `<h1 style="margin:0 0 8px 0;">Tu Nombre</h1>
+<p style="color:#6b7280; margin:0 0 16px 0;">Posición deseada • Ciudad • contacto@email</p>
+<h2 style="margin-top:12px;">Experiencia</h2>
+<ul><li><strong>Puesto — Empresa</strong> (Fechas) — Breve descripción de responsabilidades y logro clave</li></ul>
+<h2 style="margin-top:12px;">Educación</h2>
+<p>Grado — Institución — Año</p>
+<h2 style="margin-top:12px;">Habilidades</h2>
+<p>Lista de habilidades separadas por comas</p>`,
+  },
+  {
+    id: 'product-spec',
+    name: 'Product Spec',
+    emoji: '📐',
+    category: 'trabajo',
+    content: `<h1 style="margin:0 0 8px 0;">Título del Producto / Feature</h1>
+<p style="color:#6b7280;">Resumen ejecutivo: ¿qué y por qué?</p>
+<h2>Objetivos</h2>
+<ul><li>Objetivo 1 (métrica)</li><li>Objetivo 2 (métrica)</li></ul>
+<h2>Requisitos</h2>
+<ol><li>Funcional</li><li>No funcional</li></ol>
+<h2>Timeline</h2>
+<p>Hitos y fechas</p>`,
+  },
+  {
+    id: 'bug-report',
+    name: 'Reporte de Bug',
+    emoji: '🐞',
+    category: 'desarrollo',
+    content: `<h1>Bug: [Título corto]</h1>
+<p><strong>Pasos para reproducir:</strong></p>
+<ol><li>Paso 1</li><li>Paso 2</li></ol>
+<p><strong>Resultado esperado:</strong> ...</p>
+<p><strong>Resultado real:</strong> ...</p>
+<p><strong>Información adicional:</strong> logs, versión, entorno</p>`,
+  },
+  {
+    id: 'okrs',
+    name: 'OKRs',
+    emoji: '🎯',
+    category: 'trabajo',
+    content: `<h1>Objetivos y Resultados Clave (OKR)</h1>
+<h2>Objetivo 1</h2>
+<ul><li>KR1: métrica</li><li>KR2: métrica</li></ul>
+<h2>Objetivo 2</h2>
+<ul><li>KR1: métrica</li></ul>`,
+  },
+  {
+    id: 'reading-notes',
+    name: 'Notas de Lectura',
+    emoji: '📖',
+    category: 'educacion',
+    content: `<h1>Notas: [Título del Libro / Artículo]</h1>
+<p><strong>Autor:</strong> [Nombre]</p>
+<h2>Resumen</h2>
+<p>Breve resumen del contenido</p>
+<h2>Ideas clave</h2>
+<ul><li>Idea 1</li><li>Idea 2</li></ul>
+<h2>Acciones</h2>
+<p>Cómo aplicar lo aprendido</p>`,
+  },
+  {
+    id: 'recipe',
+    name: 'Receta',
+    emoji: '🍽️',
+    category: 'personal',
+    content: `<h1>Nombre de la Receta</h1>
+<p><strong>Porciones:</strong> 2 | <strong>Tiempo:</strong> 30 min</p>
+<h2>Ingredientes</h2>
+<ul><li>Ingrediente 1</li><li>Ingrediente 2</li></ul>
+<h2>Instrucciones</h2>
+<ol><li>Paso 1</li><li>Paso 2</li></ol>`,
+  },
+  {
+    id: 'packing-list',
+    name: 'Checklist de Equipaje',
+    emoji: '🧳',
+    category: 'viajes',
+    content: `<h1>Checklist de Equipaje</h1>
+<ul><li>Pasaporte</li><li>Ropa</li><li>Cargadores</li></ul>`,
+  },
+  {
+    id: 'study-plan',
+    name: 'Plan de Estudio',
+    emoji: '🧠',
+    category: 'educacion',
+    content: `<h1>Plan de Estudio: [Tema]</h1>
+<h2>Objetivo</h2>
+<p>Qué quiero aprender y para cuándo</p>
+<h2>Temas</h2>
+<ol><li>Unidad 1</li><li>Unidad 2</li></ol>
+<h2>Recursos</h2>
+<p>Libros, enlaces, videos</p>`,
+  },
+  {
+    id: 'interview-prep',
+    name: 'Preparación Entrevista',
+    emoji: '🗣️',
+    category: 'trabajo',
+    content: `<h1>Preparación Entrevista</h1>
+<h2>Preguntas frecuentes</h2>
+<ul><li>Cuéntame sobre ti</li><li>Fortalezas y debilidades</li></ul>
+<h2>Proyectos a destacar</h2>
+<p>Lista de experiencias relevantes</p>`,
+  },
+  {
+    id: 'design-critique',
+    name: 'Crítica de Diseño',
+    emoji: '🖼️',
+    category: 'creatividad',
+    content: `<h1>Design Critique</h1>
+<h2>Resumen</h2>
+<p>Qué se intenta resolver</p>
+<h2>Lo que funciona</h2>
+<h2>Lo que se puede mejorar</h2>`,
+  },
+  {
+    id: 'investor-pitch',
+    name: 'Pitch para Inversores',
+    emoji: '📈',
+    category: 'negocios',
+    content: `<h1>Pitch</h1>
+<h2>Problema</h2>
+<p>¿Qué problema resolvemos?</p>
+<h2>Solución</h2>
+<p>Propuesta de valor</p>
+<h2>Mercado</h2>
+<p>Tamaño y segmento</p>`,
+  },
+  {
+    id: 'newsletter',
+    name: 'Borrador de Newsletter',
+    emoji: '📰',
+    category: 'marketing',
+    content: `<h1>Newsletter - Asunto</h1>
+<p>Intro breve — Enlace destacado — Llamado a la acción</p>`,
+  },
+  {
+    id: 'podcast-episode',
+    name: 'Episodio de Podcast',
+    emoji: '🎙️',
+    category: 'creatividad',
+    content: `<h1>Episodio: [Título]</h1>
+<h2>Temario</h2>
+<ul><li>Sección 1</li><li>Sección 2</li></ul>
+<h2>Notas de preparación</h2>`,
+  },
+  {
+    id: 'weekly-review',
+    name: 'Revisión Semanal',
+    emoji: '🔁',
+    category: 'productividad',
+    content: `<h1>Revisión Semanal</h1>
+<h2>Qué salió bien</h2>
+<h2>Qué mejorar</h2>
+<h2>Prioridades para la próxima semana</h2>`,
+  },
+  {
+    id: 'sprint-retro',
+    name: 'Retrospectiva de Sprint',
+    emoji: '🔧',
+    category: 'trabajo',
+    content: `<h1>Retrospectiva</h1>
+<h2>Qué fué bien</h2>
+<h2>Qué no fué bien</h2>
+<h2>Acciones</h2>`,
+  },
 ];
 
 export const CATEGORIES = [
