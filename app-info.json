@@ -1,0 +1,9 @@
+{
+  "name": "notion-clone",
+  "displayName": "Notion Clone",
+  "version": "0.1.0",
+  "description": "A desktop note-taking application inspired by Notion",
+  "author": "Your Name",
+  "license": "MIT"
+}
+
