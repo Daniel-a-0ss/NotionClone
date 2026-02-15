@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "concurrently \"webpack --mode development --watch\" \"wait-on dist/index.html && electron .\"",
-    "build": "webpack --mode production && electron-builder",
+  "build": "webpack --mode production && electron-builder",
+  "build:web": "webpack --mode production",
+  "vercel-build": "npm run build:web",
     "start": "electron .",
     "test": "jest --passWithNoTests"
   },

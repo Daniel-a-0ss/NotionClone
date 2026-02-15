@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useStore } from '../store/useStore';
 import PageTreeItem from './PageTreeItem';
+import api from '../api';
 
 interface SidebarProps {
   onNuevaPageClick?: () => void;
@@ -24,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onNuevaPageClick }) => {
   useEffect(() => {
     const load = async () => {
       try {
-        const result = await window.api.getPages();
+        const result = await api.getPages();
         if (result.success) {
           setPages(result.data || []);
         }
@@ -51,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onNuevaPageClick }) => {
 
   const reloadPages = React.useCallback(async () => {
     try {
-      const result = await window.api.getPages();
+      const result = await api.getPages();
       if (result.success) {
         setPages(result.data || []);
       }
@@ -62,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onNuevaPageClick }) => {
 
   const handleDeletePage = async (id: string) => {
     try {
-      const result = await window.api.deletePage(id);
+      const result = await api.deletePage(id);
       if (result.success) {
         removePage(id);
         if (currentPageId === id) {
@@ -76,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onNuevaPageClick }) => {
 
   const handleExport = async () => {
     try {
-      const res = await window.api.exportDatabase();
+      const res = await api.exportDatabase();
       if (res.success && res.data) {
         const blob = new Blob([res.data], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -102,7 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onNuevaPageClick }) => {
     if (!file) return;
     try {
       const text = await file.text();
-      const res = await window.api.importDatabase(text);
+      const res = await api.importDatabase(text);
       if (res.success) {
         // reload pages
         reloadPages();

@@ -5,6 +5,7 @@ import EditorPanel from '../components/EditorPanel';
 import TemplateGallery from '../components/TemplateGallery';
 import TemplateNameModal from '../components/TemplateNameModal';
 import { TemplateItem } from '../templates/templates';
+import api from '../api';
 
 const App: React.FC = () => {
   const pages = useStore((state) => state.pages);
@@ -21,7 +22,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const loadPages = async () => {
       try {
-        const result = await window.api.getPages();
+        const result = await api.getPages();
         if (result.success && result.data && result.data.length > 0) {
           setPages(result.data);
           setShowGallery(false);
@@ -52,24 +53,24 @@ const App: React.FC = () => {
   const handleCreatePage = async (pageName: string) => {
     if (!selectedTemplate) return;
 
-    try {
-      const result = await window.api.createPage({
-        title: pageName,
-        icon: selectedTemplate.emoji,
-      });
+      try {
+        const result = await api.createPage({
+          title: pageName,
+          icon: selectedTemplate.emoji,
+        });
 
-      if (result.success) {
-        // Guardar el contenido de la plantilla
-        await window.api.saveDocument(result.data.id, selectedTemplate.content);
+        if (result.success) {
+          // Guardar el contenido de la plantilla
+          await api.saveDocument(result.data.id, selectedTemplate.content);
 
-        addPage(result.data);
-        setCurrentPageId(result.data.id);
-        setSelectedTemplate(null);
-        setShowGallery(false);
+          addPage(result.data);
+          setCurrentPageId(result.data.id);
+          setSelectedTemplate(null);
+          setShowGallery(false);
+        }
+      } catch (error) {
+        console.error('Error creando página:', error);
       }
-    } catch (error) {
-      console.error('Error creando página:', error);
-    }
   };
 
   if (isLoading) {

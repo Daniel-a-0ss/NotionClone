@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useStore } from '../store/useStore';
 import RichEditor from './RichEditor';
+import api from '../api';
 
 const EditorPanel: React.FC = () => {
   const currentPageId = useStore((state) => state.currentPageId);
@@ -17,7 +18,7 @@ const EditorPanel: React.FC = () => {
     // Cargar contenido del documento
     const loadContent = async () => {
       try {
-        const result = await window.api.getDocument(currentPageId);
+        const result = await api.getDocument(currentPageId);
         if (result.success) {
           setContent(result.data || '');
         }
@@ -40,7 +41,7 @@ const EditorPanel: React.FC = () => {
     saveTimeoutRef.current = setTimeout(async () => {
       if (currentPageId) {
         try {
-          const result = await window.api.saveDocument(currentPageId, newContent);
+          const result = await api.saveDocument(currentPageId, newContent);
           if (!result.success) {
             console.error('Error guardando documento:', result.error);
           }
