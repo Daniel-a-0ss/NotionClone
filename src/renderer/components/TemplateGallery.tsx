@@ -14,6 +14,8 @@ const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSelected })
   const [searchQuery, setSearchQuery] = useState('');
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
   const [thumbs, setThumbs] = useState<Record<string, string>>({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     // Generate thumbnails for visible templates
@@ -41,6 +43,15 @@ const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSelected })
       return matchesCategory && matchesSearch;
     });
   }, [selectedCategory, searchQuery]);
+
+  // Reset paging when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, searchQuery]);
+
+  const totalItems = filteredTemplates.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const visibleTemplates = filteredTemplates.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   // Utility: strip HTML and truncate for preview
   const getPreviewText = (html: string, max = 120) => {
@@ -106,9 +117,10 @@ const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSelected })
       {/* Templates Grid */}
       <div className="gallery-content">
         {filteredTemplates.length > 0 ? (
-          <div className="templates-gallery-grid">
-            {filteredTemplates.map((template) => (
-              <div key={template.id}>
+          <>
+            <div className="templates-gallery-grid">
+              {visibleTemplates.map((template) => (
+                <div key={template.id}>
                 <button
                   className="template-card"
                   onClick={() => setPreviewTemplate(template)}
@@ -133,9 +145,51 @@ const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSelected })
 
                   <div className="template-card-preview" aria-hidden>Vista previa</div>
                 </button>
+                </div>
+              ))}
+            </div>
+
+            {/* Pagination controls */}
+            <div className="gallery-pagination" aria-label="Paginación de plantillas" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 16 }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <button className="btn-ghost" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} aria-label="Página anterior">◀</button>
+                <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                  {Array.from({ length: totalPages }).map((_, i) => {
+                    const pageNum = i + 1;
+                    // show a compact range if too many pages
+                    if (totalPages > 9) {
+                      if (pageNum === 1 || pageNum === totalPages || Math.abs(pageNum - currentPage) <= 1) {
+                        return (
+                          <button key={pageNum} className={`page-btn ${currentPage === pageNum ? 'active' : ''}`} onClick={() => setCurrentPage(pageNum)}>
+                            {pageNum}
+                          </button>
+                        );
+                      }
+                      if (pageNum === 2 && currentPage > 3) return <span key={pageNum}>…</span>;
+                      if (pageNum === totalPages - 1 && currentPage < totalPages - 2) return <span key={pageNum}>…</span>;
+                      return null;
+                    }
+                    return (
+                      <button key={pageNum} className={`page-btn ${currentPage === pageNum ? 'active' : ''}`} onClick={() => setCurrentPage(pageNum)}>
+                        {pageNum}
+                      </button>
+                    );
+                  })}
+                </div>
+                <button className="btn-ghost" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} aria-label="Página siguiente">▶</button>
               </div>
-            ))}
-          </div>
+
+              <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                <div style={{ color: '#6b7280' }}>Mostrando {Math.min((currentPage - 1) * pageSize + 1, totalItems)} - {Math.min(currentPage * pageSize, totalItems)} de {totalItems}</div>
+                <label htmlFor="pageSizeSelect" style={{ color: '#6b7280' }}>Por página:</label>
+                <select id="pageSizeSelect" value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setCurrentPage(1); }}>
+                  <option value={6}>6</option>
+                  <option value={12}>12</option>
+                  <option value={24}>24</option>
+                </select>
+              </div>
+            </div>
+          </>
         ) : (
           <div className="gallery-empty">
             <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
