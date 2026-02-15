@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, Suspense } from 'react';
 import { useStore } from '../store/useStore';
-import RichEditor from './RichEditor';
+const RichEditor = React.lazy(() => import('./RichEditor'));
 import api from '../api';
 
 const EditorPanel: React.FC = () => {
@@ -72,7 +72,9 @@ const EditorPanel: React.FC = () => {
           <h1 className="editor-page-title">{currentPage?.title}</h1>
         </div>
       </div>
-      <RichEditor content={content} onChange={handleContentChange} />
+      <Suspense fallback={<div className="editor-loading">Cargando editor...</div>}>
+        <RichEditor content={content} onChange={handleContentChange} />
+      </Suspense>
     </div>
   );
 };
